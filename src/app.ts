@@ -1,9 +1,9 @@
-import express from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 
-const app = express();
+const app: Application = express();
 const port = 5001;
 
-app.use('/', (req,res,next) => {
+app.use('/', (req: Request,res: Response, next: NextFunction) => {
     res.status(200).send({message: "Hello from localhost"});
 });
 
