@@ -1,0 +1,45 @@
+{
+  "name": "express-mongo",
+  "version": "1.0.0",
+  "description": "Express JS typescript with mongodb",
+  "main": "app",
+  "scripts": {
+    "start": "nodemon",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goodhel/express-typescript.git"
+  },
+  "keywords": [
+    "Express",
+    "Javascript",
+    "MongoDB"
+  ],
+  "author": "yudhi kusuma",
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+        "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "husky": "^7.0.4",
+    "prettier": "2.5.0",
+    "pretty-quick": "^3.1.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
