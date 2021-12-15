@@ -10,7 +10,7 @@ export const connectToServer = (callback: any) => {
       return callback(err)
     }
 
-    dbConnection = db.db('exmongo')
+    dbConnection = db.db('testdb')
     console.log('Successfully connected to MongoDB.')
 
     return callback()
