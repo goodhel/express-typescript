@@ -34,3 +34,14 @@ Husky
 ```
 npm i --save-dev husky pretty-quick
 ```
+
+Jest
+```
+npm i -D jest @types/jest ts-jest
+jest --init
+```
+
+Supertest
+```
+npm i -D supertest @types/supertest
+```
