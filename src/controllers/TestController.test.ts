@@ -1,12 +1,19 @@
 import request from 'supertest'
-import { app } from '../app'
+import { createServer } from '../app'
+import { connect, Close } from '../db/conn'
 
 /* eslint-disable no-undef */
-describe('Test TestController', () => {
-  it('Request /test should return Hello from This is TestController!', async () => {
-    const result = await request(app).get('/test').send()
+describe('Get /test', () => {
+  beforeAll(async () => {
+    await connect()
+  })
 
-    expect(result.status).toBe(200)
-    expect(result.body.data).toBe('Hello from This is TestController!')
+  afterAll(() => {
+    Close.close()
+  })
+
+  it('Response with json', async () => {
+    const app = createServer()
+    await request(app).get('/test').set('Accept', 'application/json').expect('Content-Type', /json/).expect(200)
   })
 })

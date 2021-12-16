@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { getDb } from '../db/conn'
+import { db } from '../db/conn'
 import { ObjectId } from 'mongodb'
 export const TestController: Router = Router()
 
 TestController.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = getDb()
-    const results = await dbConnect
+    const results = await db
       .collection('students')
       .aggregate([
         {
@@ -37,7 +36,7 @@ TestController.get('/', async (req: Request, res: Response, next: NextFunction) 
 
 TestController.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = getDb()
+    const dbConnect = db
     const doc = {
       name: req.body.name,
       tgl_lahir: req.body.tgl_lahir
@@ -62,7 +61,8 @@ TestController.post('/', async (req: Request, res: Response, next: NextFunction)
 
 TestController.put('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = getDb()
+    const dbConnect = db
+    console.log(dbConnect)
     const filter = { _id: new ObjectId(req.body.id) }
     const updateDocument = {
       $set: {
@@ -79,7 +79,7 @@ TestController.put('/', async (req: Request, res: Response, next: NextFunction) 
 
 TestController.delete('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = getDb()
+    const dbConnect = db
     const id: string = String(req.query.id)
     const filter = { _id: new ObjectId(id) }
     console.log(filter)
