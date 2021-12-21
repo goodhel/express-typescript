@@ -15,5 +15,23 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "always",
+            "asyncArrow": "always"
+        }]
+        // "camelcase": ["error"],
+        // "@typescript-eslint/naming-convention": [
+        //     "error",
+        //     { "selector": "property", "format": ["snake_case"] }
+        // ]
     }
+    // "overrides": [
+    //     {
+    //       "files": ["**/*.ts", "**/*.tsx"],
+    //       "rules": {
+    //         "camelcase": ["off"]
+    //       }
+    //     }
+    // ]
 }

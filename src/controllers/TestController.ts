@@ -1,59 +1,20 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { db } from '../db/conn'
-import { ObjectId } from 'mongodb'
+import m$test from '../modules/test.module'
 export const TestController: Router = Router()
 
 TestController.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const results = await db
-      .collection('students')
-      .aggregate([
-        {
-          $lookup: {
-            from: 'address',
-            localField: '_id',
-            foreignField: 'student_id',
-            as: 'adress_as'
-          }
-        }
-        // this for return a single value not an array (one to one)
-        // {
-        //   $unwind: {
-        //     path: '$adress_as',
-        //     preserveNullAndEmptyArrays: true
-        //   }
-        // }
-      ])
-      .toArray()
-    // for await (const doc of results) {
-    //   console.log(doc)
-    // }
-    res.status(200).send({ data: results })
-  } catch (e) {
-    next(e)
+    const results = await m$test.getList()
+    res.status(200).send(results)
+  } catch (error) {
+    res.status(400).send(error)
   }
 })
 
 TestController.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = db
-    const doc = {
-      name: req.body.name,
-      tgl_lahir: req.body.tgl_lahir
-    }
-
-    const result = await dbConnect.collection('students').insertOne(doc)
-
-    const alamat = {
-      student_id: result.insertedId,
-      name: req.body.name_address,
-      city: req.body.city
-    }
-
-    const resalamat = await dbConnect.collection('address').insertOne(alamat)
-    console.log(resalamat)
-
-    res.status(200).send({ data: 'Insert Success', results: result })
+    const results = await m$test.insertStudent(req.body)
+    res.status(200).send(results)
   } catch (error) {
     res.status(401).send(error)
   }
@@ -61,17 +22,8 @@ TestController.post('/', async (req: Request, res: Response, next: NextFunction)
 
 TestController.put('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = db
-    console.log(dbConnect)
-    const filter = { _id: new ObjectId(req.body.id) }
-    const updateDocument = {
-      $set: {
-        tgl_lahir: req.body.tgl_lahir
-      }
-    }
-    console.log(filter, updateDocument)
-    const results = await dbConnect.collection('students').updateOne(filter, updateDocument)
-    res.status(200).send({ data: results })
+    const results = await m$test.updateStudent(req.body)
+    res.status(200).send(results)
   } catch (error) {
     res.status(400).send(error)
   }
@@ -79,13 +31,10 @@ TestController.put('/', async (req: Request, res: Response, next: NextFunction) 
 
 TestController.delete('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const dbConnect = db
     const id: string = String(req.query.id)
-    const filter = { _id: new ObjectId(id) }
-    console.log(filter)
-    const results = await dbConnect.collection('students').deleteOne(filter)
+    const results = await m$test.deleteStudent(id)
 
-    res.status(200).send({ data: results })
+    res.status(200).send(results)
   } catch (error) {
     res.status(400).send(error)
   }

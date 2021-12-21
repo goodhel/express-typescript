@@ -10,7 +10,7 @@ export const connect = async () => {
     await client.connect()
     // Establish and verify connection
     db = client.db('testdb')
-    console.log('Connected successfully to server')
+    // console.log('Connected successfully to server')
   } catch (err) {
     console.log(err)
   }
